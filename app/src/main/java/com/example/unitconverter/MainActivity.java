@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         unit_spinner.setAdapter(aa2);
 
         edit_message=findViewById(R.id.edit_message);
-
         edit_message.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -53,62 +52,64 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(edit_message.getText().toString().length()>0){
-                    if(category_spinner.getSelectedItemPosition()==0){
-                        if(unit_spinner.getSelectedItemPosition()==0){
-                            Double res_m=Double.parseDouble(edit_message.getText().toString())*0.01;
-                            Double res_km=Double.parseDouble(edit_message.getText().toString())*0.00001;
-                            res.setText(res_m+" m \n"+res_km+" km");
-                        }
-                        if(unit_spinner.getSelectedItemPosition()==1){
-                            Double res_cm=Double.parseDouble(edit_message.getText().toString())*100;
-                            Double res_km=Double.parseDouble(edit_message.getText().toString())*0.001;
-                            res.setText(res_cm+" cm \n"+res_km+" km");
-                        }
-                        if(unit_spinner.getSelectedItemPosition()==2){
-                            Double res_cm=Double.parseDouble(edit_message.getText().toString())*100000F;
-                            Double res_m=Double.parseDouble(edit_message.getText().toString())*1000F;
-                            res.setText(res_cm+" cm \n"+res_m+" m");
-                        }
-                    }else if(category_spinner.getSelectedItemPosition()==1){
-                        if(unit_spinner.getSelectedItemPosition()==0){
-                            Double res_k=Double.parseDouble(edit_message.getText().toString())-273.15F;
-                            Double res_F=Double.parseDouble(edit_message.getText().toString());
-                            res_F=1.8*(res_F-273)+32;
-                            res.setText(res_k+" c \n"+res_F+" F");
-                        }
-                        if(unit_spinner.getSelectedItemPosition()==1){
-                            Double res_k=Double.parseDouble(edit_message.getText().toString())+273.15;
-                            Double res_F=Double.parseDouble(edit_message.getText().toString())*33.8;
-                            res.setText(res_k+" K \n"+res_F+" F");
-                        }
-                        if(unit_spinner.getSelectedItemPosition()==2){
-                            Double res_k=Double.parseDouble(edit_message.getText().toString())+459.67;
-                            Double res_c=Double.parseDouble(edit_message.getText().toString())*-17.22222;
-                            res.setText(res_k+" K \n"+res_c+" c");
-                        }
-                    }else{
-                        if(unit_spinner.getSelectedItemPosition()==0){
-                            Double res_d=Double.parseDouble(edit_message.getText().toString())*0.013;
-                            Double res_e=Double.parseDouble(edit_message.getText().toString())*0.012;
-                            res.setText(res_e+" €(Euro) \n"+res_d+" $ (USD)");
-                        }
-                        if(unit_spinner.getSelectedItemPosition()==1){
-                            Double res_r=Double.parseDouble(edit_message.getText().toString())*77.98;
-                            Double res_e=Double.parseDouble(edit_message.getText().toString())*0.95;
-                            res.setText(res_r+" INR \n"+res_e+" €(Euro) ");
-                        }
-                        if(unit_spinner.getSelectedItemPosition()==2) {
-                            Double res_r = Math.round(Double.parseDouble(edit_message.getText().toString())*82.26)/10000000.0;
-                            Double res_d = Math.round(Double.parseDouble(edit_message.getText().toString())*1.05)/10000000.0;
-                            res.setText(res_r + " INR \n" + res_d + " $ (USD)");
-                        }
-                    }
-                }
+                updateResult();
             }
         });
     }
-
+    public void updateResult(){
+        if(edit_message.getText().toString().length()>0){
+            if(category_spinner.getSelectedItemPosition()==0){
+                if(unit_spinner.getSelectedItemPosition()==0){
+                    Double res_m=Double.parseDouble(edit_message.getText().toString())*0.01;
+                    Double res_km=Double.parseDouble(edit_message.getText().toString())*0.00001;
+                    res.setText(res_m+" m \n"+res_km+" km");
+                }
+                if(unit_spinner.getSelectedItemPosition()==1){
+                    Double res_cm=Double.parseDouble(edit_message.getText().toString())*100;
+                    Double res_km=Double.parseDouble(edit_message.getText().toString())*0.001;
+                    res.setText(res_cm+" cm \n"+res_km+" km");
+                }
+                if(unit_spinner.getSelectedItemPosition()==2){
+                    Double res_cm=Double.parseDouble(edit_message.getText().toString())*100000F;
+                    Double res_m=Double.parseDouble(edit_message.getText().toString())*1000F;
+                    res.setText(res_cm+" cm \n"+res_m+" m");
+                }
+            }else if(category_spinner.getSelectedItemPosition()==1){
+                if(unit_spinner.getSelectedItemPosition()==0){
+                    Double res_k=Double.parseDouble(edit_message.getText().toString())-273.15F;
+                    Double res_F=Double.parseDouble(edit_message.getText().toString());
+                    res_F=1.8*(res_F-273)+32;
+                    res.setText(res_k+" c \n"+res_F+" F");
+                }
+                if(unit_spinner.getSelectedItemPosition()==1){
+                    Double res_k=Double.parseDouble(edit_message.getText().toString())+273.15;
+                    Double res_F=(Double.parseDouble(edit_message.getText().toString())*1.8)+32;
+                    res.setText(res_k+" K \n"+res_F+" F");
+                }
+                if(unit_spinner.getSelectedItemPosition()==2){
+                    Double res_k=(Double.parseDouble(edit_message.getText().toString())+459.67)*5/9;
+                    Double res_c=(Double.parseDouble(edit_message.getText().toString())-32)/1.8;
+                    res.setText(res_k+" K \n"+res_c+" c");
+                }
+            }else{
+                if(unit_spinner.getSelectedItemPosition()==0){
+                    Double res_d=Double.parseDouble(edit_message.getText().toString())*0.013;
+                    Double res_e=Double.parseDouble(edit_message.getText().toString())*0.012;
+                    res.setText(res_e+" €(Euro) \n"+res_d+" $ (USD)");
+                }
+                if(unit_spinner.getSelectedItemPosition()==1){
+                    Double res_r=Double.parseDouble(edit_message.getText().toString())*77.98;
+                    Double res_e=Double.parseDouble(edit_message.getText().toString())*0.95;
+                    res.setText(res_r+" INR \n"+res_e+" €(Euro) ");
+                }
+                if(unit_spinner.getSelectedItemPosition()==2) {
+                    Double res_r = Math.round(Double.parseDouble(edit_message.getText().toString())*82.26)/10000000.0;
+                    Double res_d = Math.round(Double.parseDouble(edit_message.getText().toString())*1.05)/10000000.0;
+                    res.setText(res_r + " INR \n" + res_d + " $ (USD)");
+                }
+            }
+        }
+    }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(category_spinner.getSelectedItemPosition()==0){
@@ -124,10 +125,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             units[1]="Dollar";
             units[2]="Euro";
         }
-        Log.d(TAG, "onItemSelected: "+units);
         aa2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item,units);
         aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unit_spinner.setAdapter(aa2);
+        updateResult();
     }
 
     @Override
